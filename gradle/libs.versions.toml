@@ -1,0 +1,20 @@
+[versions]
+febit-boot = '3.3.0'
+febit-commons = '3.1.0'
+febit-devkit = '1.3.0'
+
+spring-boot = '3.3.2'
+
+temporal = '1.24.2'
+
+
+[libraries]
+febit-boot-deps = { module = 'org.febit.boot:febit-boot-dependencies', version.ref = 'febit-boot' }
+starter-temporal = { module = 'io.temporal:temporal-spring-boot-starter', version.ref = 'temporal' }
+
+[plugins]
+febit-bom = { id = 'org.febit.standard-bom', version.ref = 'febit-devkit' }
+febit-codegen-module = { id = 'org.febit.codegen-module', version.ref = 'febit-devkit' }
+febit-java = { id = 'org.febit.standard-java', version.ref = 'febit-devkit' }
+
+spring-boot = { id = 'org.springframework.boot', version.ref = 'spring-boot' }

@@ -1,0 +1,33 @@
+plugins {
+  alias libs.plugins.spring.boot
+}
+
+def PKG = "org.febit.demo.temporal"
+
+springBoot {
+  mainClass.set "${PKG}.App"
+}
+
+bootRun {
+  systemProperties System.properties
+}
+
+bootJar {
+  archiveFileName = "${project.name}.jar"
+}
+
+codegenModule {
+  module "${PKG}.AppVersion"
+}
+
+dependencies {
+  implementation 'org.febit:febit-lang'
+
+  implementation 'org.febit.boot:febit-boot-starter-webmvc'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.kafka:spring-kafka'
+
+  implementation libs.starter.temporal
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

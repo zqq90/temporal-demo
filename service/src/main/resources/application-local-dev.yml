@@ -1,0 +1,15 @@
+server.tomcat:
+  threads:
+    min-spare: 1
+
+logging.level:
+  app: debug
+
+spring.temporal:
+  namespace: febit-dev
+  connection:
+    target: 127.0.0.1:7233
+
+spring.kafka:
+  bootstrap-servers: 127.0.0.1:9092
+  consumer.group-id: temporal-demo

@@ -1,0 +1,6 @@
+server.tomcat:
+  threads:
+    min-spare: 1
+
+logging.level:
+  app: debug

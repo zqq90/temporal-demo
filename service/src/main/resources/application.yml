@@ -1,0 +1,40 @@
+server.port: ${SERVER_PORT:8082}
+
+spring:
+  profiles.active: local-dev
+  application:
+    name: febit-boot-demo
+
+logging.group:
+  app:
+    - org.febit.demo.temporal
+  kafka:
+    - org.apache.kafka
+
+logging.level:
+  app: info
+  kafka: warn
+
+spring.temporal:
+  namespace:
+  connection:
+    target:
+  workersAutoDiscovery:
+    packages: org.febit.demo.temporal
+
+spring.kafka:
+  bootstrap-servers:
+  consumer:
+    max-poll-records: 1
+    group-id:
+
+app.temporal.producer:
+  cron: '* * * * * *'
+  batch-size: 2
+  topic: temporal-demo
+
+app.temporal.consumer:
+  cron: '*/2 * * * * *'
+  batch-size: 2
+  topics:
+    - ${app.temporal.producer.topic}

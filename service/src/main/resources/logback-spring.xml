@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+  <contextName>demo-doggy</contextName>
+
+  <include resource="febit-boot/logging/logback/defaults.xml"/>
+
+  <root level="info">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+
+  <springProfile name="!(local-dev | local-test | unit-test)">
+    <root level="info">
+      <appender-ref ref="FILE_ALL"/>
+      <appender-ref ref="FILE_WARN"/>
+      <appender-ref ref="FILE_ERROR"/>
+    </root>
+  </springProfile>
+
+</configuration>

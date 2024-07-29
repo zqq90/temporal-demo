@@ -1,0 +1,84 @@
+version: '3'
+
+## See: https://github.com/temporalio/docker-compose
+
+services:
+  zk:
+    image: bitnami/zookeeper:3.9
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - net
+
+  kafka:
+    image: bitnami/kafka:3.7
+    depends_on:
+      - zk
+    ports:
+      - 9092:9092
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://${KAFKA_HOST}:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=${ZK_HOST}:2181
+      - KAFKA_BROKER_ID=1
+    networks:
+      - net
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - net
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  temporal:
+    image: temporalio/auto-setup:${TEMPORAL_VERSION}
+    depends_on:
+      - db
+    ports:
+      - ${TEMPORAL_PORT}:7233
+    networks:
+      - net
+    volumes:
+      - ./dynamicconfig:/etc/temporal/config/dynamicconfig
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_SEEDS=db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PWD=${POSTGRES_PASSWORD}
+      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
+
+  temporal-admin-tools:
+    image: temporalio/admin-tools:${TEMPORAL_ADMINTOOLS_VERSION}
+    depends_on:
+      - temporal
+    stdin_open: true
+    tty: true
+    networks:
+      - net
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CLI_ADDRESS=temporal:7233
+
+  temporal-ui:
+    image: temporalio/ui:${TEMPORAL_UI_VERSION}
+    depends_on:
+      - temporal
+    ports:
+      - ${TEMPORAL_UI_PORT}:8080
+    networks:
+      - net
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+
+networks:
+  net:
+
+volumes:
+  db_data:

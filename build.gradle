@@ -1,0 +1,49 @@
+plugins {
+  alias libs.plugins.febit.java
+  alias libs.plugins.febit.codegen.module
+
+  alias libs.plugins.spring.boot apply false
+}
+
+ext {
+}
+
+group 'org.febit.demo.temporal'
+version '1.0.0-SNAPSHOT'
+
+subprojects {
+  apply plugin: 'java'
+
+  java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+  }
+
+  group = rootProject.group
+  version = rootProject.version
+
+  repositories {
+    maven { url "https://repo.huaweicloud.com/repository/maven" }
+  }
+
+  codegenModule {
+    defaultTemplate = febitTmpl()
+  }
+
+  test {
+    useJUnitPlatform()
+    include '**/*Test.class'
+    // Exclude Integration Testing
+    exclude '**/*IT.class'
+  }
+
+  dependencies {
+    implementation(platform(libs.febit.boot.deps))
+    compileOnly 'org.febit:febit-annotations-optional'
+    testCompileOnly 'org.febit:febit-annotations-optional'
+
+    testImplementation 'org.febit:febit-commons-test'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+  }
+}
