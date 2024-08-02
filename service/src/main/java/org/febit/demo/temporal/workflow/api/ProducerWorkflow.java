@@ -9,7 +9,7 @@ import io.temporal.workflow.WorkflowMethod;
 public interface ProducerWorkflow extends IStoppableWorkflow {
 
     @WorkflowMethod
-    boolean product();
+    boolean product(String batchId, int seq);
 
     @SignalMethod
     void requireStop();

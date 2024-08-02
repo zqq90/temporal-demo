@@ -5,5 +5,5 @@ import io.temporal.activity.ActivityInterface;
 @ActivityInterface
 public interface ProducerActivity {
 
-    void product();
+    void product(String batchId, int seq);
 }

@@ -25,8 +25,8 @@ public class ProducerWorkflowImpl implements ProducerWorkflow {
     private final AtomicBoolean stopped = new AtomicBoolean(false);
 
     @Override
-    public boolean product() {
-        activity.product();
+    public boolean product(String batchId, int seq) {
+        activity.product(batchId, seq);
         return true;
     }
 

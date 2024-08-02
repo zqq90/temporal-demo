@@ -3,7 +3,7 @@ server.port: ${SERVER_PORT:8082}
 spring:
   profiles.active: local-dev
   application:
-    name: febit-boot-demo
+    name: temporal-demo
 
 logging.group:
   app:
@@ -30,11 +30,11 @@ spring.kafka:
 
 app.temporal.producer:
   cron: '* * * * * *'
-  batch-size: 2
+  batch-size: 200
   topic: temporal-demo
 
 app.temporal.consumer:
   cron: '*/2 * * * * *'
-  batch-size: 2
+  batch-size: 200
   topics:
     - ${app.temporal.producer.topic}

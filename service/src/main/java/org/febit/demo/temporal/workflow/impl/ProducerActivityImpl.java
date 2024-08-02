@@ -19,7 +19,8 @@ public class ProducerActivityImpl implements ProducerActivity {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public void product() {
-        kafkaTemplate.send(producerProps.topic(), "hello");
+    public void product(String batchId, int seq) {
+        log.info("NOTICE: product batchId = {}, seq = {}", batchId, seq);
+        kafkaTemplate.send(producerProps.topic(), "Batch: " + batchId + ", SEQ: " + seq);
     }
 }

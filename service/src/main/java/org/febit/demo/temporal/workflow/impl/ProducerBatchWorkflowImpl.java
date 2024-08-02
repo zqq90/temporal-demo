@@ -14,6 +14,7 @@ import org.febit.demo.temporal.config.ScheduleProducerProps;
 import org.febit.demo.temporal.workflow.ScheduleService;
 import org.febit.demo.temporal.workflow.api.ProducerBatchWorkflow;
 import org.febit.demo.temporal.workflow.api.ProducerWorkflow;
+import org.febit.demo.temporal.workflow.util.BatchUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -42,10 +43,12 @@ public class ProducerBatchWorkflowImpl implements ProducerBatchWorkflow {
                 .setParentClosePolicy(ParentClosePolicy.PARENT_CLOSE_POLICY_TERMINATE)
                 .build();
 
+        var batchId = BatchUtils.batchIdInMin();
         var promises = new ArrayList<Promise<Boolean>>();
+
         for (int i = 0; i < producerProps.batchSize(); i++) {
             var child = Workflow.newChildWorkflowStub(ProducerWorkflow.class, options);
-            var promise = Async.function(child::product);
+            var promise = Async.function(child::product, batchId, i);
             promises.add(promise);
         }
 

@@ -5,6 +5,7 @@ import io.temporal.client.WorkflowOptions;
 import io.temporal.client.schedules.Schedule;
 import io.temporal.client.schedules.ScheduleActionStartWorkflow;
 import io.temporal.client.schedules.ScheduleClient;
+import io.temporal.client.schedules.ScheduleDescription;
 import io.temporal.client.schedules.ScheduleHandle;
 import io.temporal.client.schedules.ScheduleOptions;
 import io.temporal.client.schedules.SchedulePolicy;
@@ -108,9 +109,16 @@ public class ScheduleService {
 
     private void stopScheduleShadow(String scheduleId) {
         var schedule = scheduleClient.getHandle(scheduleId);
-        var desc = schedule.describe();
-        log.info("Schedule: {}", Logs.json(desc));
 
+        ScheduleDescription desc;
+        try {
+            desc = schedule.describe();
+        } catch (Exception e) {
+            log.warn("Failed to describe schedule", e);
+            return;
+        }
+
+        log.debug("Schedule: {}", Logs.json(desc));
         try {
             schedule.delete();
         } catch (Exception e) {
@@ -128,7 +136,8 @@ public class ScheduleService {
                         .setCronExpressions(List.of(
                                 props.cron()
                         ))
-                        .build())
+                        .build()
+                )
                 .setAction(ScheduleActionStartWorkflow.newBuilder()
                         .setWorkflowType(props.workflowType())
                         .setArguments()
