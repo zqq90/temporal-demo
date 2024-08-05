@@ -1,0 +1,11 @@
+logging.level:
+  app: debug
+
+spring.temporal:
+  namespace: febit-dev
+  connection:
+    target: temporal:7233
+
+spring.kafka:
+  bootstrap-servers: kafka:9092
+  consumer.group-id: temporal-demo

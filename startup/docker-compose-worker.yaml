@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  worker:
+    image: zqq90/temporal-demo:latest
+    depends_on:
+      - temporal
+      - kafka
+    ports:
+      - 9999:9999
+      - 8082:80
+    networks:
+      - net
+    environment:
+      SERVER_PORT: 80
+      SPRING_PROFILES_ACTIVE: startup
+    volumes:
+      - ./worker/config:/app/config:ro

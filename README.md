@@ -11,8 +11,16 @@
 
 ### Build
 
++ Build Jar with Gradle
+
 ```bash
-./gradlew clean build
+./gradlew clean build -x test
+```
+
++ Build Docker Image
+
+```bash
+docker build -t zqq90/temporal-demo:latest --build-arg JAR_FILE=./service/build/libs/temporal-demo-service.jar .
 ```
 
 ### Start a Kafka mock server
@@ -26,7 +34,18 @@ kcat -M 3
 ### Start Temporal & Kafka
 
 ```bash
-docker-compose -f startup/docker-compose.yaml up
+cd startup
+docker-compose -f ./docker-compose.yaml up
+```
+
+### Start Temporal & Kafka & Worker
+
+```bash
+cd startup
+docker compose \
+  -f ./docker-compose.yaml \
+  -f ./docker-compose-worker.yaml \
+  up
 ```
 
 ### Init Temporal with `tctl`
