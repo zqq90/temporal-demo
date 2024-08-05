@@ -1,7 +1,7 @@
 package org.febit.demo.temporal.config;
 
 import jakarta.annotation.Nonnull;
-import org.febit.demo.temporal.workflow.api.ProducerBatchWorkflow;
+import org.febit.demo.temporal.workflow.ScheduleDefs;
 import org.febit.demo.temporal.workflow.model.IScheduleProps;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -29,7 +29,7 @@ public record ScheduleProducerProps(
 
     @Override
     public Class<?> workflowType() {
-        return ProducerBatchWorkflow.class;
+        return ScheduleDefs.ProducerBatchWorkflow.class;
     }
 
 }

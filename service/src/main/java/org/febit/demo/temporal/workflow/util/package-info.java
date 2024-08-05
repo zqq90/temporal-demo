@@ -1,4 +1,4 @@
 @NonNullApi
-package org.febit.demo.temporal.workflow.api;
+package org.febit.demo.temporal.workflow.util;
 
 import org.febit.lang.annotation.NonNullApi;

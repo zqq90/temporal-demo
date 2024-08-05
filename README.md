@@ -54,6 +54,11 @@ docker_exec temporal operator search-attribute create \
   --namespace="febit-dev" \
   --name="BizGroup" \
   --type="Text"
+  
+docker_exec temporal operator search-attribute create \
+  --namespace="febit-dev" \
+  --name="BizBatchNumber" \
+  --type="Int"
 ```
 
 + List Namespaces
@@ -80,3 +85,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -d ''
 ```
+
++ Actuator - Prometheus
+
+http://localhost:9999/actuator/prometheus

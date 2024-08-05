@@ -14,4 +14,9 @@ public class BatchUtils {
         var now = LocalDateTime.now();
         return FMT_MIN.format(now);
     }
+
+    public static long batchNumberInMin() {
+        var ms = System.currentTimeMillis();
+        return ms / 1000 / 60;
+    }
 }

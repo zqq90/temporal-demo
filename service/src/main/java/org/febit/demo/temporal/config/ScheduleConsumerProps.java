@@ -1,7 +1,7 @@
 package org.febit.demo.temporal.config;
 
 import jakarta.annotation.Nonnull;
-import org.febit.demo.temporal.workflow.api.ConsumerBatchWorkflow;
+import org.febit.demo.temporal.workflow.ScheduleDefs;
 import org.febit.demo.temporal.workflow.model.IScheduleProps;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -14,9 +14,7 @@ import static org.febit.demo.temporal.workflow.ScheduleService.WF_CONSUMER_BATCH
 public record ScheduleConsumerProps(
         @Nonnull
         String cron,
-
         int batchSize,
-
         @Nonnull
         List<String> topics
 ) implements IScheduleProps {
@@ -33,6 +31,6 @@ public record ScheduleConsumerProps(
 
     @Override
     public Class<?> workflowType() {
-        return ConsumerBatchWorkflow.class;
+        return ScheduleDefs.ConsumerBatchWorkflow.class;
     }
 }

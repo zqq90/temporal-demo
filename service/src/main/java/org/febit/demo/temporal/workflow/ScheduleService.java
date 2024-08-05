@@ -34,6 +34,7 @@ public class ScheduleService {
 
     public static final String KEY_BIZ = "Biz";
     public static final String KEY_BIZ_GROUP = "BizGroup";
+    public static final String KEY_BIZ_BATCH_NUM = "BizBatchNumber";
 
     public static final String BIZ_GROUP = "ScheduledKafka";
     public static final String BIZ_PRODUCER = "producer";

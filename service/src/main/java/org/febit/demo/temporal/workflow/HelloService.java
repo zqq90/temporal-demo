@@ -3,7 +3,6 @@ package org.febit.demo.temporal.workflow;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
-import org.febit.demo.temporal.workflow.api.HelloWorkflow;
 import org.febit.demo.temporal.workflow.model.User;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class HelloService {
 
     public String post(User person) {
         var workflow = client.newWorkflowStub(
-                HelloWorkflow.class,
+                HelloDefs.HelloWorkflow.class,
                 WorkflowOptions.newBuilder()
                         .setTaskQueue(TASK_QUEUE)
                         .setWorkflowId("HelloSample")

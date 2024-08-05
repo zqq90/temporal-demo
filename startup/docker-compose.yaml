@@ -25,6 +25,15 @@ services:
     networks:
       - net
 
+  #  prometheus:
+  #    image: prom/prometheus:v2.53.1
+  #    ports:
+  #      - ${PROMETHEUS_PORT}:9090
+  #    volumes:
+  #      - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+  #    networks:
+  #      - net
+
   db:
     image: postgres:16
     environment:

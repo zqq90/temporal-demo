@@ -40,6 +40,9 @@ subprojects {
   dependencies {
     implementation(platform(libs.febit.boot.deps))
     compileOnly 'org.febit:febit-annotations-optional'
+
+    runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+
     testCompileOnly 'org.febit:febit-annotations-optional'
 
     testImplementation 'org.febit:febit-commons-test'

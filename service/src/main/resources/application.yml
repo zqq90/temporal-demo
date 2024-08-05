@@ -24,9 +24,25 @@ spring.temporal:
 
 spring.kafka:
   bootstrap-servers:
+  producer:
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # properties:
+    # spring.json.add.type.headers: false
   consumer:
     max-poll-records: 1
+    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring.json.trusted.packages: org.febit.demo.temporal.workflow.model
+      # spring.json.value.default.type: org.febit.demo.temporal.workflow.model.Message
     group-id:
+
+management:
+  endpoints.web.exposure.include: '*'
+  server:
+    port: 9999
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 app.temporal.producer:
   cron: '* * * * * *'
