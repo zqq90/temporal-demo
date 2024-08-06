@@ -24,11 +24,14 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class ConsumerActivityImpl implements ScheduleDefs.ConsumerActivity {
 
+    public static final int POLL_TIMEOUT_MS = 900;
+
     private final ScheduleConsumerProps consumerProps;
     private final ConsumerFactory<String, Message> consumerFactory;
     private final MeterRegistry meterRegistry;
 
     @Override
+    @SuppressWarnings("BusyWait")
     public boolean consume(String batchId, int seq) {
         Counter.builder("demo.consumer.started")
                 .tag("batchId", batchId)
@@ -48,7 +51,13 @@ public class ConsumerActivityImpl implements ScheduleDefs.ConsumerActivity {
                     return true;
                 }
 
-                var records = consumer.poll(Duration.ofMillis(900));
+                try {
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    return true;
+                }
+
+                var records = consumer.poll(Duration.ofMillis(POLL_TIMEOUT_MS));
                 if (records.isEmpty()) {
                     continue;
                 }

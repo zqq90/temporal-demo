@@ -8,8 +8,11 @@ spring:
 logging.group:
   app:
     - org.febit.demo.temporal
+  zk:
+    - org.apache.zookeeper
   kafka:
     - org.apache.kafka
+    - kafka
 
 logging.level:
   app: info

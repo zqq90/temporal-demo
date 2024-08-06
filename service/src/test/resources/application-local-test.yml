@@ -1,0 +1,15 @@
+logging.level:
+  app: debug
+  zk: warn
+  kafka: warn
+
+spring.kafka:
+  consumer.group-id: temporal-demo
+
+app.temporal.producer:
+  cron: '* * * * * *'
+  batch-size: 200
+
+app.temporal.consumer:
+  cron: '*/2 * * * * *'
+  batch-size: 200

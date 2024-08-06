@@ -5,12 +5,13 @@ febit-devkit = '1.3.0'
 
 spring-boot = '3.3.2'
 
-temporal = '1.24.2'
+temporal = '1.24.3'
 
 
 [libraries]
 febit-boot-deps = { module = 'org.febit.boot:febit-boot-dependencies', version.ref = 'febit-boot' }
 starter-temporal = { module = 'io.temporal:temporal-spring-boot-starter', version.ref = 'temporal' }
+temporal-testing = { module = 'io.temporal:temporal-testing', version.ref = 'temporal' }
 
 [plugins]
 febit-bom = { id = 'org.febit.standard-bom', version.ref = 'febit-devkit' }

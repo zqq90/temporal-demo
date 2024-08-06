@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
     public static final String TASK_QUEUE = "Sample_Hello";
+    public static final String WF_ID = "HelloSample";
 
     private final WorkflowClient client;
 
@@ -19,7 +20,7 @@ public class HelloService {
                 HelloDefs.HelloWorkflow.class,
                 WorkflowOptions.newBuilder()
                         .setTaskQueue(TASK_QUEUE)
-                        .setWorkflowId("HelloSample")
+                        .setWorkflowId(WF_ID)
                         .build()
         );
 
